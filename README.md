@@ -4,9 +4,10 @@ this repo contains  source code for running ovirt-system-tests (libvirt) [0] in 
 [0] https://github.com/oVirt/ovirt-system-tests.git
 
 ## building the container
-- clone the ost code `git clone https://github.com/oVirt/ovirt-system-tests.git`
+- clone the ost code `git clone -b ignore_selinux_firewall https://github.com/eslutsky/ovirt-system-tests.git` [0]
 - chown to the image `chown -R 1000:1000 ovirt-system-tests`
 - build the container `podman build . -t ost-podman`
+[0] - this is a patched version for running in container
 
 ## running ost inside the container
 - run the  pre-build container as privileged (root)
