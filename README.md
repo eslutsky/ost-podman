@@ -12,7 +12,7 @@ this repo contains  source code for running ovirt-system-tests (libvirt) [0] in 
 ## running ost inside the container
 - run the  pre-build container as privileged (root)
     ```bash
-    podman run --name ost --privileged -d --device /dev/kvm:/dev/kvm -v /sys/fs/cgroup:/sys/fs/cgroup:rw -v $(pwd)/:/work ost-podman
+    podman run --name ost --privileged -d --device /dev/kvm:/dev/kvm --sysctl net.ipv6.conf.all.accept_ra=2 -v /sys/fs/cgroup:/sys/fs/cgroup:rw -v $(pwd)/:/work ost-podman
     ```
 
 - run the ost setup script inside container
