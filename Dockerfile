@@ -52,6 +52,7 @@ VOLUME /var/lib/docker
 # The entrypoint.sh script runs before services start up to ensure that
 # critical directories and permissions are correct.
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["/sbin/init"]
