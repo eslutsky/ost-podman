@@ -32,6 +32,7 @@ RUN useradd podman; \
     echo podman:10000:5000 > /etc/subuid; \
     echo podman:10000:5000 > /etc/subgid;
 RUN chown podman:podman -R /home/podman
+RUN chown podman:podman -R /work
 
 RUN echo "podman        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 RUN usermod -a -G qemu podman
