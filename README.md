@@ -21,5 +21,24 @@ this repo contains  source code for running ovirt-system-tests (libvirt) [0] in 
 - run the entire flow `make run-all`
     this will build and run the OST container,setup OST,create the RHV environment,run tests
 
+## Accessing the OST engine for debugging (2 hops)
+
+```bash
+
+# Access the container shell
+make debug
+
+## find out the ost container address
+OST_CONTAINER_IP=`ip -4 -o addr show eth0  |  egrep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -1`
+
+#  from Container create ssh tunnel to the engine VM
+sudo sshpass -p 123456 ssh -L ${OST_CONTAINER_IP}:443:192.168.200.2:443 root@192.168.200.2
+
+
+## create ssh tunnnel to the Host running the Container
+sudo ssh -L 443:${OST_CONTAINER_IP}:443 root@${OST_HOST}
+
+```
+- this will open 443 on localhost,allowing access to the engine on port 443
 
 

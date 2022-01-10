@@ -25,5 +25,5 @@ fi
 
 git clone https://github.com/oVirt/go-ovirt-client.git
 podman build . -t ovirt-client
-podman run -w /go/builddir/go-ovirt-client -ti ovirt-client bash -c 'source ../env.sh ; go test --json  ./... '
+podman run --rm -w /go/builddir/go-ovirt-client -ti ovirt-client bash -c 'source ../env.sh ; go test --json  ./... '
 
