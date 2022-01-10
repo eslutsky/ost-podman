@@ -16,4 +16,4 @@ jobs:
     - name: Send greeting
       run: echo "Running  tests in ${{ github.event.inputs.is_live }} env"
     - name: trigger the job
-      run: timeout 40 /work/test-go-ovirt.sh live
+      run: timeout 40 /work/test-go-ovirt.sh ${{ github.event.inputs.is_live }}
