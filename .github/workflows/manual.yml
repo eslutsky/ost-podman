@@ -19,3 +19,5 @@ jobs:
     steps:
     - name: Send greeting
       run: echo "Hello ${{ github.event.inputs.name }}"
+    - name: trigger the job
+      run: timeout 40 /work/test-go-ovirt.sh live
