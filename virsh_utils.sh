@@ -35,3 +35,19 @@ function restore_xml {
 
 
 }
+
+function add_engine_alternate_FQDN {
+    hostname=$1
+    port=$2
+    sshpass -p 123456 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null  root@192.168.202.2 <<EOF
+echo >>/etc/ovirt-engine/engine.conf.d/99-custom-fqdn.conf
+echo SSO_ALTERNATE_ENGINE_FQDNS\=\"$\{SSO_ALTERNATE_ENGINE_FQDNS\} ${hostname} ${hostname}:${port}\" >>/etc/ovirt-engine/engine.conf.d/99-custom-fqdn.conf
+systemctl restart ovirt-engine
+EOF
+}
+
+function find_podman_port {
+    container_id=$(podman ps  | grep ost-podman | awk '{print $1}')
+    echo $(podman inspect ${container_id} | jq -r ' .[] | .NetworkSettings.Ports."443/tcp" | .[0].HostPort')
+
+}
