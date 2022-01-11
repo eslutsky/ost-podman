@@ -1,0 +1,15 @@
+[Unit]
+Description=oVirt Engine Socket forwarder
+#Before=my-other.service
+
+[Service]
+Type=simple
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ovirt-engine-socat
+
+ExecStart=/usr/bin/socat -d tcp-listen:443,fork,reuseaddr tcp-connect:192.168.200.2:443
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -24,7 +24,7 @@ rm -f /lib/systemd/system/anaconda.target.wants/*;
 RUN dnf install -y python3.9 python39-devel python3-pip python3-gobject \
 git curl wget jq \
 libcurl-devel sudo which \
-gcc openssl-devel libxml2-devel libvirt-daemon-kvm virt-install fuse-overlayfs sudo   
+gcc openssl-devel libxml2-devel libvirt-daemon-kvm virt-install fuse-overlayfs sudo socat   
 
 ## PODMAN ###
 RUN dnf install -y podman
@@ -47,6 +47,10 @@ RUN systemctl enable virtlockd
 # Add configuration for "default" storage pool.
 RUN mkdir -p /etc/libvirt/storage
 COPY pool-default.xml /etc/libvirt/storage/default.xml
+
+# Socat service
+COPY ovirt-engine-socat.service /usr/lib/systemd/system/ovirt-engine-socat.service
+RUN systemctl enable ovirt-engine-socat
 
 VOLUME /var/lib/docker
 
