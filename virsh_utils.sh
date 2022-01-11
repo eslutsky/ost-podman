@@ -1,5 +1,13 @@
 #!/bin/bash
-
+function find_unused_port {
+    while
+        port=$(shuf -n 1 -i 49152-65535)
+        netstat -atun | grep -q "$port"
+    do
+    continue
+    done
+    echo "$port"
+}
 function save_xml {
 echo "saving VMs"
 for vm in `virsh list | grep ost | awk '{print $2}'` ; do

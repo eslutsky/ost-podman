@@ -1,5 +1,6 @@
-CONTAINER_ID=`podman ps -a | grep ost-podman | awk '{print $$1}'`
+CONTAINER_ID=`podman ps  | grep ost-podman | awk '{print $$1}'`
 SUITE_NAME=tr-suite-master
+HIGH_PORT=`source ${CURDIR}/virsh_utils.sh;find_unused_port`
 OS=el8stream
 
 
@@ -9,7 +10,7 @@ build-ost:
 	podman build --squash -f Dockerfile -t ost-podman
 
 run-ost:
-	podman run --name ost --privileged -d --device /dev/kvm:/dev/kvm --sysctl net.ipv6.conf.all.accept_ra=2 -v /sys/fs/cgroup:/sys/fs/cgroup:rw  ost-podman
+	podman run --name ost-2 --privileged --publish ${HIGH_PORT}:443 -d --device /dev/kvm:/dev/kvm --sysctl net.ipv6.conf.all.accept_ra=2 -v /sys/fs/cgroup:/sys/fs/cgroup:rw  ost-podman:full
 
 setup-ost:
 	echo $(CONTAINER_ID)
