@@ -10,9 +10,12 @@ run-all: build-ost run-ost setup-ost run-suite run-live-tests
 build-ost:
 	podman build --squash -f Dockerfile -t ost-podman
 
+print-engine-fqdn:
+	echo "OST Engine is available at https://${FQDN}:${EXTERNAL_PORT}"
+
 run-ost:
 	podman run --name ost-2 --privileged --publish ${HIGH_PORT}:443 -d --device /dev/kvm:/dev/kvm --sysctl net.ipv6.conf.all.accept_ra=2 -v /sys/fs/cgroup:/sys/fs/cgroup:rw  ost-podman:full
-
+	echo "OST Engine is available at https://${FQDN}:${EXTERNAL_PORT}"
 
 setup-ost:
 	echo $(CONTAINER_ID)
