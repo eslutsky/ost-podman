@@ -24,13 +24,25 @@ function restore_xml {
         virsh start "${vm:3:-4}"
     done
 
+}
+
+function wait_VM_to_be_up {
+    address=$1
+while [ -z "$( socat -T2 stdout tcp:${address}:22,connect-timeout=2,readbytes=1 2>/dev/null )" ]
+do
+    echo "."
+    sleep 1
+done
 
 }
+
+
 
 function add_engine_alternate_FQDN {
     hostname=$1
     port=$2
     dnf install socat -y
+    wait_VM_to_be_up "192.168.202.2"
     sshpass -p 123456 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null  root@192.168.202.2 <<EOF
 set -x
 echo >>/etc/ovirt-engine/engine.conf.d/99-custom-fqdn.conf
