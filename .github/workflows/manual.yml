@@ -30,5 +30,6 @@ jobs:
         clean: true
     - name: trigger the ost tests
       run: |
+        ls -latr
         cd ost-podman/
         timeout 40 make run-ost-engine-ui     
