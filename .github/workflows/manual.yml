@@ -29,7 +29,11 @@ jobs:
         path: ${{ github.ref }}
         clean: true
     - name: trigger the ost tests
+      working-directory: ./refs/heads/main
       run: |
-        ls -latr
-        cd ost-podman/
-        timeout 40 make run-ost-engine-ui     
+        timeout 40 sudo make run-ost-engine-ui     
+    - name: cleanup
+      working-directory: ./refs/heads/main
+      run: |
+        timeout 40 sudo make cleanup
+    
