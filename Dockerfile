@@ -49,7 +49,7 @@ RUN mkdir -p /etc/libvirt/storage
 COPY pool-default.xml /etc/libvirt/storage/default.xml
 
 # Socat service
-COPY ovirt-engine-socat.service /usr/lib/systemd/system/ovirt-engine-socat.service
+COPY lib/ovirt-engine-socat.service /usr/lib/systemd/system/ovirt-engine-socat.service
 RUN systemctl enable ovirt-engine-socat
 
 VOLUME /var/lib/docker
