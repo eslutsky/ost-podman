@@ -29,4 +29,6 @@ jobs:
         path: ${{ github.ref }}
         clean: true
     - name: trigger the ost tests
-      run: timeout 40 make run-live-tests        
+      run: |
+        cd ost-podman/
+        timeout 40 make run-ost-engine-ui     
