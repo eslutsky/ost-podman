@@ -16,10 +16,12 @@ jobs:
     - uses: actions/checkout@v2
       with:
         clean: true
-    - name: trigger the ost tests
+    - name: run the OST
       run: |
-        timeout 40 sudo make run-ost-engine-ui     
-
+        timeout 300 sudo make run-ost-engine-ui     
+    - name: run the tests
+      run: |
+        timeout 300 sudo make run-live-tests 
     
   cleanup:
     runs-on: self-hosted
@@ -28,4 +30,4 @@ jobs:
     steps:
     - name: cleanup
       run: |
-        timeout 40 sudo make cleanup
+        timeout 100 sudo make cleanup
